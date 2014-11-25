@@ -10,9 +10,9 @@ CND_CONF=default
 CND_DISTDIR=dist
 TMPDIR=build/${CND_CONF}/${IMAGE_TYPE}/tmp-packaging
 TMPDIRNAME=tmp-packaging
-OUTPUT_PATH=dist/${CND_CONF}/${IMAGE_TYPE}/PowerSupply-SSC.${IMAGE_TYPE}.${OUTPUT_SUFFIX}
-OUTPUT_BASENAME=PowerSupply-SSC.${IMAGE_TYPE}.${OUTPUT_SUFFIX}
-PACKAGE_TOP_DIR=powersupply-ssc/
+OUTPUT_PATH=dist/${CND_CONF}/${IMAGE_TYPE}/Fazia-SSC-PSU.${IMAGE_TYPE}.${OUTPUT_SUFFIX}
+OUTPUT_BASENAME=Fazia-SSC-PSU.${IMAGE_TYPE}.${OUTPUT_SUFFIX}
+PACKAGE_TOP_DIR=fazia-ssc-psu/
 
 # Functions
 function checkReturnCode
@@ -57,15 +57,15 @@ mkdir -p ${TMPDIR}
 
 # Copy files and create directories and links
 cd "${TOP}"
-makeDirectory ${TMPDIR}/powersupply-ssc/bin
+makeDirectory ${TMPDIR}/fazia-ssc-psu/bin
 copyFileToTmpDir "${OUTPUT_PATH}" "${TMPDIR}/${PACKAGE_TOP_DIR}bin/${OUTPUT_BASENAME}" 0755
 
 
 # Generate tar file
 cd "${TOP}"
-rm -f ${CND_DISTDIR}/${CND_CONF}/package/powersupply-ssc.tar
+rm -f ${CND_DISTDIR}/${CND_CONF}/package/fazia-ssc-psu.tar
 cd ${TMPDIR}
-tar -vcf ../../../../${CND_DISTDIR}/${CND_CONF}/package/powersupply-ssc.tar *
+tar -vcf ../../../../${CND_DISTDIR}/${CND_CONF}/package/fazia-ssc-psu.tar *
 checkReturnCode
 
 # Cleanup
