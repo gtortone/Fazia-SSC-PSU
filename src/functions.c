@@ -1,4 +1,3 @@
-#include "utils.h"
 #include "functions.h"
 #include "frame.h"
 #include "cbuffer.h"
@@ -8,6 +7,8 @@
 #include "comb-dev.h"
 #include "spi-dev.h"
 #include "uarterr.h"
+#include "board.h"
+#include "utils.h"
 
 #include <p18cxxx.h>
 #include <stdio.h>
@@ -145,12 +146,13 @@ BYTE f_mod_pwroff(char *data, char *result) {
 
    if (strlen(data) == 0) {
 
-      ps_poweroff(P5, NORMAL);
-      ps_poweroff(M5, NORMAL);
-      ps_poweroff(M8, NORMAL);
-      ps_poweroff(P12, NORMAL);
       ps_poweroff(P5p5_OUT, NORMAL);
-
+      __delay_ms(100);
+      ps_poweroff(P12, NORMAL);
+      ps_poweroff(M8, NORMAL);
+      ps_poweroff(M5, NORMAL);
+      ps_poweroff(P5, NORMAL);
+      
       sprintf(result, "%d|", FUNC_EXEC_OK);
 
    } else {

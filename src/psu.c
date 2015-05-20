@@ -97,7 +97,7 @@ void psu_init(void) {
    PSU->line[P12].vcoeff = 16110;
    PSU->line[P12].imuxch = 7;
    PSU->line[P12].icoeff = 2000;
-   PSU->line[P12].Vnorm = 15000;    // 12000
+   PSU->line[P12].Vnorm = 14000;  
 
    if ( !ps_memrd_vthr(P12, &(PSU->line[P12].Vmin), &(PSU->line[P12].Vmax)) ) {
       PSU->line[P12].Vmin = PSU->line[P12].Vnorm - (PSU->line[P12].Vnorm / 100 * GAP_RATE);

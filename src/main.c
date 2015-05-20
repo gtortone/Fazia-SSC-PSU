@@ -8,8 +8,8 @@
 #pragma config IESO = OFF       // Internal/External Oscillator Switchover bit (Oscillator Switchover mode disabled)
 
 #pragma config PWRT = OFF       // Power-up Timer Enable bit (PWRT disabled)
-#pragma config BOREN = OFF      // Brown-out Reset Enable bits (Brown-out Reset disabled in hardware and software)
-#pragma config BORV = 18        // Brown Out Reset Voltage bits (VBOR set to 1.8 V nominal)
+#pragma config BOREN = NOSLP    // Brown-out Reset Enable bits (Brown-out Reset enabled in hardware)
+#pragma config BORV = 30        // Brown Out Reset Voltage bits (VBOR set to 3.0 V nominal)
 
 #pragma config WDTEN = OFF      // Watchdog Timer Enable bit (WDT is controlled by SWDTEN bit of the WDTCON register)
 #pragma config WDTPS = 32768    // Watchdog Timer Postscale Select bits (1:32768)
@@ -30,6 +30,7 @@
 #include "comb-dev.h"
 #include "spi-dev.h"
 #include "psu.h"
+#include "utils.h"
 
 extern UINT32 avg_voltages[9];
 extern UINT32 avg_currents[7];
@@ -71,7 +72,7 @@ void main(void) {
    UINT ferr;
    unsigned char ch;
    char fpre[10];
-
+   
    ucsetup();
    memsetup();
 
@@ -99,12 +100,13 @@ void main(void) {
 
    // START
 
-   __delay_ms(1000);
-
-   ps_poweron(P5);
+   __delay_s(20);
    ps_poweron(M5);
+   ps_poweron(P5);
    ps_poweron(M8);
    ps_poweron(P12);
+
+   __delay_ms(50);
    ps_poweron(P5p5_OUT);
 
    // END
