@@ -1,9 +1,19 @@
 #include "utils.h"
+#include "delays.h"
 
 //#include <p18cxxx.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <EEP.h>
+
+void __delay_s(UINT32 sec) {
+
+    UINT32 val = sec * 1000;
+    UINT32 i;
+
+    for(i=0;i<val;i++)
+        Delay10KTCYx(2);       // sleep 1 msec
+}
 
 unsigned int htoi(const char *ptr) {
 

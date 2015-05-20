@@ -115,7 +115,7 @@ void memsetup(void) {
    ps_poweroff(M8, FORCE);
    ps_poweroff(P12, FORCE);
    ps_poweroff(P5p5_OUT, FORCE);
-      
+
 #ifdef LOOPBACK_MODE
       ps_poweron(P5);
       ps_poweron(M5);
