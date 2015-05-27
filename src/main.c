@@ -72,6 +72,7 @@ void main(void) {
    UINT ferr;
    unsigned char ch;
    char fpre[10];
+   UINT counter;
    
    ucsetup();
    memsetup();
@@ -105,6 +106,23 @@ void main(void) {
    ps_poweron(P5);
    ps_poweron(M8);
    ps_poweron(P12);
+
+   // check M5 and P5 voltage levels before turn on P5p5_OUT
+   counter = 0;
+   while(((ps_getvoltage(M5) < 4500) || (ps_getvoltage(P5) < 4500)) && (counter < 20)) {
+
+       __delay_ms(5);
+       counter++;
+   }
+
+   if(counter >= 20) {
+
+      ps_poweroff(P12, NORMAL);
+      ps_poweroff(M8, NORMAL);
+      ps_poweroff(M5, NORMAL);
+      ps_poweroff(P5, NORMAL);
+      while(1) ;
+   }
 
    __delay_ms(50);
    ps_poweron(P5p5_OUT);
