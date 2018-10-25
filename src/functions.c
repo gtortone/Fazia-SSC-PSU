@@ -114,6 +114,7 @@ BYTE f_mod_pwron(char *data, char *result) {
 
    BYTE retval;
    BYTE channel;
+   UINT counter;
 
    if (strlen(data) == 0) {
 
@@ -121,9 +122,29 @@ BYTE f_mod_pwron(char *data, char *result) {
       ps_poweron(M5);
       ps_poweron(M8);
       ps_poweron(P12);
-      ps_poweron(P5p5_OUT);
 
-      sprintf(result, "%d|", FUNC_EXEC_OK);
+       // check M5 and P5 voltage levels before turn on P5p5_OUT
+       counter = 0;
+       while(((ps_getvoltage(M5) < 4500) || (ps_getvoltage(P5) < 4500)) && (counter < 20)) {
+
+           __delay_ms(5);
+           counter++;
+       }
+
+       if(counter >= 20) {
+
+          ps_poweroff(P12, NORMAL);
+          ps_poweroff(M8, NORMAL);
+          ps_poweroff(M5, NORMAL);
+          ps_poweroff(P5, NORMAL);
+          ps_poweroff(P5p5_OUT, NORMAL);
+          sprintf(result, "%d|", FUNC_EXEC_BAD_ARGS_TYPE);
+
+       } else {
+
+          ps_poweron(P5p5_OUT);
+          sprintf(result, "%d|", FUNC_EXEC_OK);
+       }
 
    } else {
 
