@@ -127,7 +127,7 @@ void psu_init(void) {
       PSU->line[P5p5_OUT].Vmax = PSU->line[P5p5_OUT].Vnorm + (PSU->line[P5p5_OUT].Vnorm / 100 * GAP_RATE);
    }
 
-   PSU->line[P5p5_OUT].Iabsmax = 40000;     // for V3 FEE cards
+   PSU->line[P5p5_OUT].Iabsmax = 45000;     // for V3 FEE cards
    if ( !ps_memrd_cthr(P5p5_OUT, &(PSU->line[P5p5_OUT].Imax)) )
       PSU->line[P5p5_OUT].Imax = PSU->line[P5p5_OUT].Iabsmax;
 
